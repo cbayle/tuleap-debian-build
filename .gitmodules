@@ -1,0 +1,9 @@
+[submodule "tuleap"]
+	path = tuleap
+	url = http://gerrit.tuleap.net/tuleap
+[submodule "forgeupgrade"]
+	path = forgeupgrade
+	url = git://github.com/vaceletm/ForgeUpgrade.git
+[submodule "php-mail-mbox"]
+	path = php-mail-mbox
+	url = http://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
