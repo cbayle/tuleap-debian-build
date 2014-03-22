@@ -10,6 +10,8 @@ REPODIR=/var/www/localrepo
 DISTRO=debian
 DISTRIB=wheezy
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
+ASKPASS=--ask-passphrase
+ASKPASS=
 
 default: $(PKGLIST) buildsrc buildbin fillrepo
 
@@ -130,3 +132,7 @@ $(PBUILDERRESULTDIR):
 #
 preparerepo:
 	@[ -d $(REPODIR)/$(DISTRO)/pool ] || make -C repo
+
+submodules:
+	git submodule init
+	git submodule update
