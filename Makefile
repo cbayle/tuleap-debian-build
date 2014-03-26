@@ -136,7 +136,7 @@ $(PBUILDERRESULTDIR):
 preparerepo:
 	@[ -d $(REPODIR)/$(DISTRO)/pool ] || make -C repo
 
-*/debian/changelog:
+%/debian/changelog:
 	git submodule init
 	git submodule update
 
