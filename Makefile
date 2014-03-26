@@ -65,7 +65,7 @@ $(BUILDDIR)/forgeupgrade:
 
 MMBOX_VERSION=0.6.3
 $(BUILDDIR)/php-mail-mbox: php-mail-mbox/.git
-	cp -a php-mail-mbox $@
+	cp -a php-mail-mbox $(BUILDDIR)/
 	(cd $@ ; tar czf $(BUILDDIR)/src/php-mail-mbox_$(MMBOX_VERSION).orig.tar.gz Mail_Mbox-* package.xml)
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
@@ -78,7 +78,7 @@ $(BUILDDIR)/jpgraph-tuleap: jpgraph-tuleap/.git
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
 $(BUILDDIR)/mailman-tuleap: mailman-tuleap/.git
-	cp -a mailman-tuleap/mailman-tuleap $(BUILDDIR)/mailman-tuleap
+	cp -a mailman-tuleap/mailman-tuleap $(BUILDDIR)/
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
 VIEWVC_VERSION=1.0.7
