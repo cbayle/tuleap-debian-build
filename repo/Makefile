@@ -20,7 +20,7 @@ SIGNKEY=$(DEBEMAIL)
 ASKPASS=--ask-passphrase
 ASKPASS=
 
-default: $(REPODIR)/debian/conf/distributions $(REPODIR)/ubuntu/conf/distributions $(HOME)/.gnupg/secring.gpg repo
+default: $(REPODIR) $(REPODIR)/debian/conf/distributions $(REPODIR)/ubuntu/conf/distributions $(HOME)/.gnupg/secring.gpg repo
 
 %/debian/conf/distributions:
 	[ -d $(REPODIR)/debian/conf ] || mkdir -p $(REPODIR)/debian/conf
@@ -97,3 +97,7 @@ clean:
 
 preparebuilder:
 	sudo pbuilder update --override-config
+
+$(REPODIR):
+	mkdir -p $@ || sudo mkdir -p $@ && sudo chown `id -u` $@
+	
