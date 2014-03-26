@@ -13,7 +13,7 @@ ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
 
-default: depends $(PKGLIST) buildsrc buildbin fillrepo
+default: depends $(PKGLIST) buildsrc buildbin fillrepo fillopenfire
 
 buildsrc: $(BUILDDIR) $(BUILDDIR)/src $(PKGBUILDDIR)
 
@@ -30,6 +30,8 @@ fillrepo: preparerepo $(REPODIR)
 		-Vb $(REPODIR)/$(DISTRO) include $(DISTRIB) $$changefile; \
 	done
 
+fillopenfire:
+	reprepro -C main $(ASKPASS) -Vb $(REPODIR)/debian includedeb $(DISTRIB) $(BUILDDIR)/deb/openfire_3.7.1_all.deb
 #
 # What to do for each package
 #
