@@ -120,7 +120,7 @@ preparerepo:
 	git submodule init
 	git submodule update
 
-depends: /usr/share/build-essential
+depends: /usr/share/build-essential /usr/sbin/pbuilder
 
 /usr/share/build-essential:
-	sudo apt-get -y install build-essential
+	sudo apt-get -y install build-essential pbuilder
