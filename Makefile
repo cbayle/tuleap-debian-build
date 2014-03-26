@@ -64,32 +64,32 @@ $(BUILDDIR)/forgeupgrade:
 	(cd $(BUILDDIR)/src ; dpkg-source -b $(CURDIR)/forgeupgrade && touch $@)
 
 MMBOX_VERSION=0.6.3
-$(BUILDDIR)/php-mail-mbox:
+$(BUILDDIR)/php-mail-mbox: php-mail-mbox/.git
 	cp -a php-mail-mbox $@
 	(cd $@ ; tar czf $(BUILDDIR)/src/php-mail-mbox_$(MMBOX_VERSION).orig.tar.gz Mail_Mbox-* package.xml)
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
 JPGRAPH_VERSION=2.3.4
-$(BUILDDIR)/jpgraph-tuleap:
+$(BUILDDIR)/jpgraph-tuleap: jpgraph-tuleap/.git
 	cp jpgraph-tuleap/jpgraph-$(JPGRAPH_VERSION).tar.gz $(BUILDDIR)/jpgraph-tuleap_$(JPGRAPH_VERSION).orig.tar.gz
 	(cd $(BUILDDIR) ; tar xzf jpgraph-tuleap_$(JPGRAPH_VERSION).orig.tar.gz ; mv jpgraph-$(JPGRAPH_VERSION) jpgraph-tuleap)
 	cp -a jpgraph-tuleap/debian $@
 	mv $(BUILDDIR)/jpgraph-tuleap_$(JPGRAPH_VERSION).orig.tar.gz $(BUILDDIR)/src/
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
-$(BUILDDIR)/mailman-tuleap:
+$(BUILDDIR)/mailman-tuleap: mailman-tuleap/.git
 	cp -a mailman-tuleap/mailman-tuleap $(BUILDDIR)/mailman-tuleap
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
 VIEWVC_VERSION=1.0.7
-$(BUILDDIR)/viewvc-tuleap:
+$(BUILDDIR)/viewvc-tuleap: viewvc-tuleap/.git
 	cp viewvc-tuleap/viewvc-$(VIEWVC_VERSION).tar.gz $(BUILDDIR)/viewvc-tuleap_$(VIEWVC_VERSION).orig.tar.gz
 	(cd $(BUILDDIR) ; tar xzf viewvc-tuleap_$(VIEWVC_VERSION).orig.tar.gz ; mv viewvc-$(VIEWVC_VERSION) viewvc-tuleap)
 	cp -a viewvc-tuleap/debian $@
 	mv $(BUILDDIR)/viewvc-tuleap_$(VIEWVC_VERSION).orig.tar.gz $(BUILDDIR)/src/
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
 
-$(BUILDDIR)/openfire-tuleap-plugins:
+$(BUILDDIR)/openfire-tuleap-plugins: openfire-tuleap-plugins/.git
 	(cd $(BUILDDIR)/src ; dpkg-source -b $(CURDIR)/openfire-tuleap-plugins && touch $@)
 
 $(BUILDDIR)/openfire: $(BUILDDIR)/deb
@@ -116,7 +116,7 @@ $(PBUILDERRESULTDIR):
 preparerepo:
 	@[ -d $(REPODIR)/$(DISTRO)/pool ] || make -C repo
 
-%/debian/changelog:
+%/debian/.git:
 	git submodule init
 	git submodule update
 
