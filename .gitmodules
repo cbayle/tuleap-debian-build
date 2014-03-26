@@ -3,7 +3,19 @@
 	url = https://github.com/Enalean/tuleap.git
 [submodule "forgeupgrade"]
 	path = forgeupgrade
-	url = git://github.com/vaceletm/ForgeUpgrade.git
+	url = https://github.com/vaceletm/ForgeUpgrade.git
 [submodule "php-mail-mbox"]
 	path = php-mail-mbox
 	url = http://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
+[submodule "jpgraph-tuleap"]
+	path = jpgraph-tuleap
+	url = https://github.com/cbayle/jpgraph-tuleap.git
+[submodule "viewvc-tuleap"]
+	path = viewvc-tuleap
+	url = https://github.com/cbayle/viewvc-tuleap.git
+[submodule "openfire-tuleap-plugins"]
+	path = openfire-tuleap-plugins
+	url = https://github.com/cbayle/openfire-tuleap-plugins.git
+[submodule "mailman-tuleap"]
+	path = mailman-tuleap
+	url = https://github.com/cbayle/mailman-tuleap.git
