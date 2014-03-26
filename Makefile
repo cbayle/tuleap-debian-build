@@ -123,4 +123,7 @@ preparerepo:
 depends: /usr/share/build-essential /usr/sbin/pbuilder
 
 /usr/share/build-essential:
-	sudo apt-get -y install build-essential pbuilder
+	sudo apt-get -y install build-essential
+
+/usr/sbin/pbuilder:
+	sudo apt-get -y install pbuilder
