@@ -33,43 +33,23 @@ fillrepo: preparerepo $(REPODIR)
 #
 # What to do for each package
 #
-TULEAP=https://github.com/Enalean/tuleap.git
-tuleap:
-	#git clone http://gerrit.tuleap.net/tuleap
-	[ -d $@ ] || git submodule add $(TULEAP)
-
-FORGEUPG=https://github.com/vaceletm/ForgeUpgrade.git
-forgeupgrade:
-	[ -d $@ ] || git submodule add $(FORGEUPG) $@
-
-# git archive is doing some kind of export (NOT USED)
-#JPGRAPH=gitolite@tuleap.net:tuleap/deps/tuleap/jpgraph-tuleap.git
-JPGRAPH=https://github.com/cbayle/jpgraph-tuleap.git
-jpgraph-tuleap:
-	#[ -d $@ ] || git archive --format=tar --remote=$(JPGRAPH) master | (mkdir $@ && cd $@ && tar xf -)
-	[ -d $@ ] || git submodule add $(JPGRAPH)
-
-#MAILMAN=gitolite@tuleap.net:tuleap/deps/tuleap/mailman-tuleap.git
-MAILMAN=https://github.com/cbayle/mailman-tuleap.git
-mailman-tuleap:
-	#[ -d $@ ] || git archive --format=tar --remote=$(MAILMAN) master | (mkdir $@ && cd $@ && tar xf -)
-	[ -d $@ ] || git submodule add $(MAILMAN)
-
-#VIEWVC=gitolite@tuleap.net:tuleap/deps/tuleap/viewvc-tuleap.git 
-VIEWVC=https://github.com/cbayle/viewvc-tuleap.git
-viewvc-tuleap:
-	#[ -d $@ ] || git archive --format=tar --remote=$(VIEWVC) master | (mkdir $@ && cd $@ && tar xf -)
-	[ -d $@ ] || git submodule add $(VIEWVC)
-
-#OPENFIREPLUGIN=gitolite@tuleap.net:tuleap/deps/tuleap/openfire-tuleap-plugins.git
-OPENFIREPLUGIN=https://github.com/cbayle/openfire-tuleap-plugins.git
-openfire-tuleap-plugins:
-	#[ -d $@ ] || git archive --format=tar --remote=$(OPENFIREPLUGIN) master | (mkdir $@ && cd $@ && tar xf -)
-	[ -d $@ ] || git submodule add $(OPENFIREPLUGIN)
-
-MAILMBOX=http://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
-php-mail-mbox:
-	[ -d $@ ] || git submodule add $(MAILMBOX)
+# This can be used to export
+#[ -d $@ ] || git archive --format=tar --remote=$(PKG) master | (mkdir $@ && cd $@ && tar xf -)
+# Submodules are added like this :
+#[ -d $@ ] || git submodule add $(PKG)
+#
+# Submodules are :
+# TULEAP=https://github.com/Enalean/tuleap.git
+# FORGEUPG=https://github.com/vaceletm/ForgeUpgrade.git
+# JPGRAPH=https://github.com/cbayle/jpgraph-tuleap.git
+#  cloned from gitolite@tuleap.net:tuleap/deps/tuleap/jpgraph-tuleap.git
+# MAILMAN=https://github.com/cbayle/mailman-tuleap.git
+#  cloned from gitolite@tuleap.net:tuleap/deps/tuleap/mailman-tuleap.git
+# VIEWVC=https://github.com/cbayle/viewvc-tuleap.git
+#  cloned from gitolite@tuleap.net:tuleap/deps/tuleap/viewvc-tuleap.git 
+# OPENFIREPLUGIN=https://github.com/cbayle/openfire-tuleap-plugins.git
+#  cloned from gitolite@tuleap.net:tuleap/deps/tuleap/openfire-tuleap-plugins.git
+# MAILMBOX=https://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
 
 #TODO should find a way to build this too
 openfire:
