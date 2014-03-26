@@ -40,30 +40,33 @@ tuleap:
 
 FORGEUPG=git://github.com/vaceletm/ForgeUpgrade.git
 forgeupgrade:
-	[ -d $@ ] || git submodule add $(FORGEUPG) forgeupgrade
+	[ -d $@ ] || git submodule add $(FORGEUPG) $@
 
-# git archive is doing some kind of export
-#TODO ask for anon repo (gerrit)
-JPGRAPH=gitolite@tuleap.net:tuleap/deps/tuleap/jpgraph-tuleap.git
+# git archive is doing some kind of export (NOT USED)
+#JPGRAPH=gitolite@tuleap.net:tuleap/deps/tuleap/jpgraph-tuleap.git
+JPGRAPH=https://github.com/cbayle/jpgraph-tuleap.git
 jpgraph-tuleap:
-	[ -d $@ ] || git archive --format=tar --remote=$(JPGRAPH) master | (mkdir $@ && cd $@ && tar xf -)
+	#[ -d $@ ] || git archive --format=tar --remote=$(JPGRAPH) master | (mkdir $@ && cd $@ && tar xf -)
+	[ -d $@ ] || git submodule add $(JPGRAPH)
 
-#TODO ask for anon repo (gerrit)
-MAILMAN=gitolite@tuleap.net:tuleap/deps/tuleap/mailman-tuleap.git
+#MAILMAN=gitolite@tuleap.net:tuleap/deps/tuleap/mailman-tuleap.git
+MAILMAN=https://github.com/cbayle/mailman-tuleap.git
 mailman-tuleap:
-	[ -d $@ ] || git archive --format=tar --remote=$(MAILMAN) master | (mkdir $@ && cd $@ && tar xf -)
+	#[ -d $@ ] || git archive --format=tar --remote=$(MAILMAN) master | (mkdir $@ && cd $@ && tar xf -)
+	[ -d $@ ] || git submodule add $(MAILMAN)
 
-#TODO ask for anon repo (gerrit) # gitolite@tuleap.net:tuleap/deps/tuleap/viewvc-tuleap.git
-VIEWVC=gitolite@tuleap.net:tuleap/deps/tuleap/viewvc-tuleap.git 
+#VIEWVC=gitolite@tuleap.net:tuleap/deps/tuleap/viewvc-tuleap.git 
+VIEWVC=https://github.com/cbayle/viewvc-tuleap.git
 viewvc-tuleap:
-	[ -d $@ ] || git archive --format=tar --remote=$(VIEWVC) master | (mkdir $@ && cd $@ && tar xf -)
+	#[ -d $@ ] || git archive --format=tar --remote=$(VIEWVC) master | (mkdir $@ && cd $@ && tar xf -)
+	[ -d $@ ] || git submodule add $(VIEWVC)
 
-#TODO ask for anon repo (gerrit) # gitolite@tuleap.net:tuleap/deps/tuleap/openfire-tuleap-plugins.git
-OPENFIREPLUGIN=gitolite@tuleap.net:tuleap/deps/tuleap/openfire-tuleap-plugins.git
+#OPENFIREPLUGIN=gitolite@tuleap.net:tuleap/deps/tuleap/openfire-tuleap-plugins.git
+OPENFIREPLUGIN=https://github.com/cbayle/openfire-tuleap-plugins.git
 openfire-tuleap-plugins:
-	[ -d $@ ] || git archive --format=tar --remote=$(OPENFIREPLUGIN) master | (mkdir $@ && cd $@ && tar xf -)
+	#[ -d $@ ] || git archive --format=tar --remote=$(OPENFIREPLUGIN) master | (mkdir $@ && cd $@ && tar xf -)
+	[ -d $@ ] || git submodule add $(OPENFIREPLUGIN)
 
-#TODO this on is in jessie # should be backported
 MAILMBOX=http://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
 php-mail-mbox:
 	[ -d $@ ] || git submodule add $(MAILMBOX)
