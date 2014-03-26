@@ -6,7 +6,7 @@
 	url = https://github.com/vaceletm/ForgeUpgrade.git
 [submodule "php-mail-mbox"]
 	path = php-mail-mbox
-	url = http://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
+	url = https://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
 [submodule "jpgraph-tuleap"]
 	path = jpgraph-tuleap
 	url = https://github.com/cbayle/jpgraph-tuleap.git
