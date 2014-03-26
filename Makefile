@@ -143,4 +143,4 @@ submodules:
 depends: /usr/share/build-essential
 
 /usr/share/build-essential:
-	sudo apt-get install build-essential
+	sudo apt-get -y install build-essential
