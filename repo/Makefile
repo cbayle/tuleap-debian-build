@@ -20,7 +20,7 @@ SIGNKEY=$(DEBEMAIL)
 ASKPASS=--ask-passphrase
 ASKPASS=
 
-default: $(REPODIR) $(REPODIR)/debian/conf/distributions $(REPODIR)/ubuntu/conf/distributions $(HOME)/.gnupg/secring.gpg repo
+default: depends $(REPODIR) $(REPODIR)/debian/conf/distributions $(REPODIR)/ubuntu/conf/distributions $(HOME)/.gnupg/secring.gpg repo
 
 %/debian/conf/distributions:
 	[ -d $(REPODIR)/debian/conf ] || mkdir -p $(REPODIR)/debian/conf
@@ -101,3 +101,7 @@ preparebuilder:
 $(REPODIR):
 	mkdir -p $@ || sudo mkdir -p $@ && sudo chown `id -u` $@
 	
+depends: /usr/bin/reprepro
+
+/usr/bin/reprepro:
+	sudo apt-get -y install reprepro
