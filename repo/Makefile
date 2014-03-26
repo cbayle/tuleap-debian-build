@@ -54,7 +54,7 @@ default: depends $(REPODIR) $(REPODIR)/debian/conf/distributions $(REPODIR)/ubun
 	echo "SignWith: $(SIGNKEY)" ; \
 	echo "" ; done >> $@
 
-repo: $(REPODIR)/debian/db $(REPODIR)/ubuntu/db
+repo: $(REPODIR)/debian/db $(REPODIR)/ubuntu/db $(REPODIR)/botkey.gpg
 
 cleanrepo:
 	rm -rf $(REPODIR)/debian/db $(REPODIR)/ubuntu/db
@@ -67,6 +67,9 @@ $(REPODIR)/ubuntu/db:
 	reprepro $(ASKPASS) -Vb $(REPODIR)/ubuntu export
 	reprepro $(ASKPASS) -Vb $(REPODIR)/ubuntu check
 
+$(REPODIR)/botkey.gpg:
+	gpg --export > $@
+	
 
 $(HOME)/.gnupg/secring.gpg: $(BOTKEYFILE)
 	[ -d ~/.gnupg ] || gpg --batch --gen-key $(BOTKEYFILE)
