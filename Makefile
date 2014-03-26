@@ -13,7 +13,7 @@ ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
 
-default: $(PKGLIST) buildsrc buildbin fillrepo
+default: depends $(PKGLIST) buildsrc buildbin fillrepo
 
 buildsrc: $(BUILDDIR) $(BUILDDIR)/src $(PKGBUILDDIR)
 
@@ -139,3 +139,8 @@ preparerepo:
 submodules:
 	git submodule init
 	git submodule update
+
+depends: /usr/share/build-essential
+
+/usr/share/build-essential:
+	sudo apt-get install build-essential
