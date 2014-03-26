@@ -33,12 +33,12 @@ fillrepo: preparerepo $(REPODIR)
 #
 # What to do for each package
 #
-TULEAP=http://gerrit.tuleap.net/tuleap
+TULEAP=https://github.com/Enalean/tuleap.git
 tuleap:
 	#git clone http://gerrit.tuleap.net/tuleap
 	[ -d $@ ] || git submodule add $(TULEAP)
 
-FORGEUPG=git://github.com/vaceletm/ForgeUpgrade.git
+FORGEUPG=https://github.com/vaceletm/ForgeUpgrade.git
 forgeupgrade:
 	[ -d $@ ] || git submodule add $(FORGEUPG) $@
 
