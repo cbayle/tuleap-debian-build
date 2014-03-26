@@ -1,6 +1,6 @@
 [submodule "tuleap"]
 	path = tuleap
-	url = http://gerrit.tuleap.net/tuleap
+	url = https://github.com/Enalean/tuleap.git
 [submodule "forgeupgrade"]
 	path = forgeupgrade
 	url = git://github.com/vaceletm/ForgeUpgrade.git
