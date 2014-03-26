@@ -77,7 +77,7 @@ openfire:
 #
 # Now each target will build debian src package
 #
-$(BUILDDIR)/tuleap:
+$(BUILDDIR)/tuleap: tuleap/debian/changelog
 	(cd $(BUILDDIR)/src ; dpkg-source -b $(CURDIR)/tuleap && touch $@)
 
 $(BUILDDIR)/forgeupgrade:
@@ -136,7 +136,7 @@ $(PBUILDERRESULTDIR):
 preparerepo:
 	@[ -d $(REPODIR)/$(DISTRO)/pool ] || make -C repo
 
-submodules:
+*/debian/changelog:
 	git submodule init
 	git submodule update
 
