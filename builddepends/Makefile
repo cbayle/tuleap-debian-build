@@ -1,5 +1,7 @@
 # List of package to build
-PKGLIST=node-lru-cache node-sigmund node-minimatch node-inherits node-glob npm twitter-recess colors.js node-nopt underscore node-abbrev
+PKGLIST=node-lru-cache node-sigmund node-minimatch node-inherits node-glob uglifyjs twitter-recess node-nopt node-abbrev
+# 2nd list of packages who requires first list to be built
+PKGLIST2=npm colors.js underscore
 # You can use the following as a make argument make BUILDDIR=/some/place
 BUILDDIR=$(HOME)/build
 # This will make a list of build/<pkg1> build/...
@@ -13,33 +15,51 @@ SRCDISTRIB=sid
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
+PBUILDEROPS=--distribution $(DISTRIB)
+PBUILDEROPS2=--distribution $(DISTRIB) --othermirror "deb http://127.0.0.1/localrepo/debian $(DISTRIB) main|deb http://cdn.debian.net/debian $(DISTRIB)-backports main" --keyring $(REPODIR)/botkey.gpg --override-config
 
-default: depends getsource buildbin
+default: depends getsource buildbin fillrepo buildbin2
+
+default2: getsource buildbin fillrepo
+
+$(PBUILDERRESULTDIR)/preparebuildbin2:
+	sudo pbuilder --update $(PBUILDEROPS2) 
+	touch $@
+
+buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
+	make PKGLIST="$(PKGLIST2)" default2
 
 getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
-	[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get \
+	@[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get \
 		-o Dir=$(BUILDDIR)/apt \
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
 		update
-	cd $(BUILDDIR)/src_builddeps ; \
+	@cd $(BUILDDIR)/src_builddeps ; \
 	[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get \
 		-o Dir=$(BUILDDIR)/apt \
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
 		source --download-only $(PKGLIST)
-	touch $(BUILDDIR)/src_builddeps/done
+	#@touch $(BUILDDIR)/src_builddeps/done
 
-buildbin: $(PBUILDERRESULTDIR)
+$(PBUILDERRESULTDIR)/preparebuildbin:
+	sudo pbuilder --create $(PBUILDEROPS)
+	touch $@
+
+buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
 	@for dscfile in $(shell ls $(BUILDDIR)//src_builddeps/*.dsc); do \
 	[ -f $(PBUILDERRESULTDIR)/`basename $$dscfile` ] || \
-	sudo pbuilder --build --buildresult $(PBUILDERRESULTDIR) $$dscfile; \
+	( \
+	echo "===== Building $$dscfile =====" ;\
+	sudo pbuilder --build $(PBUILDEROPS) --buildresult $(PBUILDERRESULTDIR) $$dscfile; \
+	) \
 	done
 
 fillrepo: preparerepo $(REPODIR)
 	@for changefile in $(shell ls $(PBUILDERRESULTDIR)/*.changes); do \
 	[ -f $(REPODIR)/$(DISTRO)/pool/main/*/*/`basename $$changefile|sed 's/$(ARCH)/*/'` ] || \
-	reprepro --ignore=wrongdistribution $(ASKPASS) \
+	reprepro --ignore=wrongdistribution --ignore=missingfile $(ASKPASS) \
 		-Vb $(REPODIR)/$(DISTRO) include $(DISTRIB) $$changefile; \
 	done
 
