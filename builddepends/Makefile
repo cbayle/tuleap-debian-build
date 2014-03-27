@@ -43,48 +43,8 @@ fillrepo: preparerepo $(REPODIR)
 		-Vb $(REPODIR)/$(DISTRO) include $(DISTRIB) $$changefile; \
 	done
 
-default2:	$(RESULTDIR)/node-lru-cache_2.3.1-1.dsc \
-		$(RESULTDIR)/node-sigmund_1.0.0-1.dsc \
-		$(RESULTDIR)/node-minimatch_0.2.12-1.dsc \
-		$(RESULTDIR)/node-inherits_2.0.0-1.dsc \
-		$(RESULTDIR)/node-glob_3.2.6-1.dsc \
-		$(RESULTDIR)/npm_1.4.4+ds-1.dsc \
-		$(RESULTDIR)/twitter-recess_1.1.9-1.dsc \
-		$(RESULTDIR)/colors.js_0.6.2-1.dsc \
-		$(RESULTDIR)/node-nopt_2.1.2-1.dsc \
-		$(RESULTDIR)/underscore_1.4.4-2.dsc \
-		$(RESULTDIR)/node-abbrev_1.0.4-2.dsc
-
-
 $(RESULDIR)/%.dsc:
 	sudo pbuilder --build $(shell basename $@) --debbuildopts -sa
-
-repoadd:
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-glob_3.2.6-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-minimatch_0.2.12-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-inherits_2.0.0-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-lru-cache_2.3.1-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-sigmund_1.0.0-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) npm_1.4.4+ds-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) twitter-recess_1.1.9-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) colors.js_0.6.2-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-nopt_2.1.2-1_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=missingfile --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) underscore_1.4.4-2_i386.changes
-	cd $(RESULTDIR); reprepro --ignore=missingfile --ignore=wrongdistribution $(ASKPASS) -Vb $(REPODIR)/debian include $(DISTRIB) node-abbrev_1.0.4-2_i386.changes
-
-get:
-	dget http://ftp.de.debian.org/debian/pool/main/n/npm/npm_1.4.4+ds-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/t/twitter-recess/twitter-recess_1.1.9-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-glob/node-glob_3.2.6-1.dsc
-	#dget http://ftp.de.debian.org/debian/pool/main/n/nodejs/nodejs_0.10.26~dfsg1-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-minimatch/node-minimatch_0.2.12-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-inherits/node-inherits_2.0.0-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-lru-cache/node-lru-cache_2.3.1-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-sigmund/node-sigmund_1.0.0-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/c/colors.js/colors.js_0.6.2-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-nopt/node-nopt_2.1.2-1.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/u/underscore/underscore_1.4.4-2.dsc
-	dget http://ftp.de.debian.org/debian/pool/main/n/node-abbrev/node-abbrev_1.0.4-2.dsc
 
 #
 # Prepare repository
