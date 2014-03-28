@@ -90,6 +90,7 @@ $(BUILDDIR)/jpgraph-tuleap: jpgraph-tuleap/.git
 $(BUILDDIR)/mailman-tuleap: mailman-tuleap/.git
 	cp -a mailman-tuleap/mailman-tuleap $(BUILDDIR)/
 	(cd $(BUILDDIR)/src ; dpkg-source -b $@)
+	touch $@
 
 VIEWVC_VERSION=1.0.7
 $(BUILDDIR)/viewvc-tuleap: viewvc-tuleap/.git
