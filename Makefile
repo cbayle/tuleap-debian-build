@@ -12,16 +12,20 @@ DISTRIB=wheezy
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
+PBUILDEROPS=--distribution $(DISTRIB)
 
 default: depends $(PKGLIST) buildsrc buildbin fillrepo fillopenfire
 
 buildsrc: $(BUILDDIR) $(BUILDDIR)/src $(PKGBUILDDIR)
 
-buildbin: $(PBUILDERRESULTDIR)
+buildbin: $(PBUILDERRESULTDIR) /var/cache/pbuilder/base.tgz
 	@for dscfile in $(shell ls $(BUILDDIR)/src/*.dsc); do \
 	[ -f $(PBUILDERRESULTDIR)/`basename $$dscfile` ] || \
-	sudo pbuilder --build --buildresult $(PBUILDERRESULTDIR) $$dscfile; \
+	sudo pbuilder --build $(PBUILDEROPS) --buildresult $(PBUILDERRESULTDIR) $$dscfile; \
 	done
+
+/var/cache/pbuilder/base.tgz:
+	sudo pbuilder --create $(PBUILDEROPS)
 
 fillrepo: preparerepo $(REPODIR)
 	@for changefile in $(shell ls $(PBUILDERRESULTDIR)/*.changes); do \
