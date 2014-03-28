@@ -32,7 +32,7 @@ default: depends getsource buildbin fillrepo buildbin2
 default2: getsource buildbin fillrepo
 
 $(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
-	sudo pbuilder --update $(PBUILDEROPS2) 
+	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
 	touch $@
 
 buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
@@ -53,7 +53,7 @@ getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	#@touch $(BUILDDIR)/src_builddeps/done
 
 $(PBUILDERRESULTDIR)/preparebuildbin: $(PBUILDERRESULTDIR)
-	sudo pbuilder --create $(PBUILDEROPS)
+	[ -f $@ ] || sudo pbuilder --create $(PBUILDEROPS)
 	touch $@
 
 buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
