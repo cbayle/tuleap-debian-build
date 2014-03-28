@@ -22,6 +22,7 @@ ASKPASS=--ask-passphrase
 ASKPASS=
 PBUILDEROPS=--distribution $(DISTRIB)
 PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb http://127.0.0.1/localrepo/debian $(DISTRIB) main|deb http://cdn.debian.net/debian $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
+PHASE=1
 GREEN=[01;32m
 NORMAL=[00m
 RED=[01;31m
@@ -36,8 +37,7 @@ $(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
 	touch $@
 
 buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
-	@echo "Build phase 2"
-	@make PKGLIST="$(PKGLIST2)" PBUILDEROPS="$(PBUILDEROPS2)" default2
+	@make PKGLIST="$(PKGLIST2)" PBUILDEROPS="$(PBUILDEROPS2)" PHASE=2 default2
 
 getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	@echo "Get Source"
@@ -52,14 +52,14 @@ getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
 		source --download-only $(PKGLIST)
-	#@touch $(BUILDDIR)/src_builddeps/done
+	@#touch $(BUILDDIR)/src_builddeps/done
 
 $(PBUILDERRESULTDIR)/preparebuildbin: $(PBUILDERRESULTDIR)
 	[ -f $@ ] || sudo pbuilder --create $(PBUILDEROPS)
 	touch $@
 
 buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
-	@echo "Build"
+	@echo "Build phase $(PHASE)"
 	@for dscfile in $(shell ls $(BUILDDIR)/src_builddeps/*.dsc); do \
 	[ -f $(PBUILDERRESULTDIR)/`basename $$dscfile` ] || \
 	( \
