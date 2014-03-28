@@ -67,7 +67,7 @@ buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
 			if [ ! -f $(PBUILDERRESULTDIR)/$$basename ]; then\
 				( \
 				echo "===== Building $$basename =====" ;\
-				echo sudo pbuilder --build $(PBUILDEROPS) --buildresult $(PBUILDERRESULTDIR) $$filename; \
+				sudo pbuilder --build $(PBUILDEROPS) --buildresult $(PBUILDERRESULTDIR) $$filename; \
 				) \
 			else \
 				echo "===== Already build $$basename =====" ;\
