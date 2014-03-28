@@ -22,6 +22,10 @@ ASKPASS=--ask-passphrase
 ASKPASS=
 PBUILDEROPS=--distribution $(DISTRIB)
 PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb http://127.0.0.1/localrepo/debian $(DISTRIB) main|deb http://cdn.debian.net/debian $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
+GREEN=[01;32m
+NORMAL=[00m
+RED=[01;31m
+
 
 default: depends getsource buildbin fillrepo buildbin2
 
@@ -77,9 +81,9 @@ list:
 			baseletter=`echo $$basepkg|cut -c1`; \
 			poolname="$(REPODIR)/$(DISTRO)/pool/main/$$baseletter/$$basepkg/$$basename"; \
 			if [ -f "$$poolname" ]; then \
-				echo "$$poolname: [OK]" ; \
+				echo "$(GREEN)[OK]$(NORMAL) $$basename" ; \
 			else \
-				echo "$$poolname: [K0]" ; \
+				echo "$(RED)[K0]$(NORMAL) $$basename" ; \
 			fi;\
 		else \
 			echo "$$pkg not found";\
@@ -93,7 +97,7 @@ $(RESULDIR)/%.dsc:
 # Prepare repository
 #
 preparerepo:
-	@[ -d $(REPODIR)/$(DISTRO)/pool ] || make -C repo
+	@[ -d $(REPODIR)/$(DISTRO)/pool ] || make -C ../repo
 
 #
 # Some directories
