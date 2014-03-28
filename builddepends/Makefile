@@ -20,7 +20,7 @@ SRCDISTRIB=sid
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
-PBUILDEROPS=--distribution $(DISTRIB)
+PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb http://cdn.debian.net/debian $(DISTRIB)-backports main'
 PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb http://127.0.0.1/localrepo/debian $(DISTRIB) main|deb http://cdn.debian.net/debian $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
 PHASE=1
 GREEN=[01;32m
@@ -53,6 +53,12 @@ getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
 		source --download-only $(PKGLIST)
 	@#touch $(BUILDDIR)/src_builddeps/done
+
+cleanpbuilder:
+	rm $(PBUILDERRESULTDIR)/preparebuildbin
+
+cleanpbuilder2:
+	rm $(PBUILDERRESULTDIR)/preparebuildbin2
 
 $(PBUILDERRESULTDIR)/preparebuildbin: $(PBUILDERRESULTDIR)
 	[ -f $@ ] || sudo pbuilder --create $(PBUILDEROPS)
