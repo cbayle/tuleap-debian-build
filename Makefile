@@ -35,6 +35,7 @@ fillrepo: preparerepo $(REPODIR)
 	done
 
 fillopenfire:
+	@[ -f $(REPODIR)/$(DISTRO)/pool/main/o/openfire/openfire_3.7.1_all.deb ] || \
 	reprepro -C main $(ASKPASS) -Vb $(REPODIR)/debian includedeb $(DISTRIB) $(BUILDDIR)/deb/openfire_3.7.1_all.deb
 #
 # What to do for each package
