@@ -11,7 +11,7 @@ BUILDDIR=$(HOME)/build
 # This will make a list of build/<pkg1> build/...
 PKGBUILDDIR=$(patsubst %,$(BUILDDIR)/%,$(PKGLIST))
 
-PBUILDERRESULTDIR=$(HOME)/pbuilder_result_builddeps
+PBUILDERRESULTDIR=$(BUILDDIR)/result_builddeps
 REPODIR=/var/www/localrepo
 DISTRO=debian
 DISTRIB=wheezy
@@ -93,6 +93,6 @@ $(BUILDDIR)/src_builddeps:
 	[ -d $@ ] || mkdir $@
 
 $(PBUILDERRESULTDIR):
-	[ -d $@ ] || mkdir $@
+	[ -d $@ ] || mkdir -p $@
 
 depends:

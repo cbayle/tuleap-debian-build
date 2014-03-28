@@ -5,7 +5,7 @@ BUILDDIR=$(HOME)/build
 # This will make a list of build/tuleap build/...
 PKGBUILDDIR=$(patsubst %,$(BUILDDIR)/%,$(PKGLIST))
 
-PBUILDERRESULTDIR=$(HOME)/pbuilder_result
+PBUILDERRESULTDIR=$(BUILDDIR)/result
 REPODIR=/var/www/localrepo
 DISTRO=debian
 DISTRIB=wheezy
@@ -113,7 +113,7 @@ $(BUILDDIR)/deb:
 	[ -d $@ ] || mkdir $@
 
 $(PBUILDERRESULTDIR):
-	[ -d $@ ] || mkdir $@
+	[ -d $@ ] || mkdir -p $@
 
 #
 # Prepare repository
