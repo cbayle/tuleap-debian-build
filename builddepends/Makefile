@@ -52,7 +52,7 @@ $(PBUILDERRESULTDIR)/preparebuildbin: $(PBUILDERRESULTDIR)
 	touch $@
 
 buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
-	@for dscfile in $(shell ls $(BUILDDIR)//src_builddeps/*.dsc); do \
+	@for dscfile in $(shell ls $(BUILDDIR)/src_builddeps/*.dsc); do \
 	[ -f $(PBUILDERRESULTDIR)/`basename $$dscfile` ] || \
 	( \
 	echo "===== Building $$dscfile =====" ;\
