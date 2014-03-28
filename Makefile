@@ -62,7 +62,7 @@ openfire:
 #
 # Now each target will build debian src package
 #
-$(BUILDDIR)/tuleap: tuleap/debian/changelog
+$(BUILDDIR)/tuleap: tuleap/.git
 	(cd $(BUILDDIR)/src ; dpkg-source -b $(CURDIR)/tuleap && touch $@)
 
 $(BUILDDIR)/forgeupgrade:
