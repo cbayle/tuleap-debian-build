@@ -9,7 +9,7 @@ PKGLIST2=npm colors.js underscore node-semver
 # You can use the following as a make argument make BUILDDIR=/some/place
 BUILDDIR=$(HOME)/build
 # This will make a list of build/<pkg1> build/...
-PKGBUILDDIR=$(patsubst %,$(BUILDDIR)/%,$(PKGLIST))
+PKGBUILDDIR=$(patsubst %,$(BUILDDIR)/src_builddeps/%,$(PKGLIST))
 
 PBUILDERRESULTDIR=$(BUILDDIR)/result_builddeps
 REPODIR=/var/www/localrepo
@@ -65,6 +65,11 @@ fillrepo: preparerepo $(REPODIR)
 	[ -f $(REPODIR)/$(DISTRO)/pool/main/*/*/`basename $$changefile|sed 's/$(ARCH)/*/'` ] || \
 	reprepro --ignore=wrongdistribution --ignore=missingfile $(ASKPASS) \
 		-Vb $(REPODIR)/$(DISTRO) include $(DISTRIB) $$changefile; \
+	done
+
+list:
+	for pkg in $(PKGBUILDDIR); do \
+		ls $${pkg}*.dsc ;\
 	done
 
 $(RESULDIR)/%.dsc:
