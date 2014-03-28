@@ -36,16 +36,18 @@ $(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
 	touch $@
 
 buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
-	make PKGLIST="$(PKGLIST2)" PBUILDEROPS="$(PBUILDEROPS2)" default2
+	@echo "Build phase 2"
+	@make PKGLIST="$(PKGLIST2)" PBUILDEROPS="$(PBUILDEROPS2)" default2
 
 getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
-	@[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get \
+	@echo "Get Source"
+	@[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get -qq \
 		-o Dir=$(BUILDDIR)/apt \
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
 		update
 	@cd $(BUILDDIR)/src_builddeps ; \
-	[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get \
+	[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get -qq \
 		-o Dir=$(BUILDDIR)/apt \
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
@@ -57,6 +59,7 @@ $(PBUILDERRESULTDIR)/preparebuildbin: $(PBUILDERRESULTDIR)
 	touch $@
 
 buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
+	@echo "Build"
 	@for dscfile in $(shell ls $(BUILDDIR)/src_builddeps/*.dsc); do \
 	[ -f $(PBUILDERRESULTDIR)/`basename $$dscfile` ] || \
 	( \
