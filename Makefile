@@ -52,6 +52,9 @@ fillopenfire:
 # OPENFIREPLUGIN=https://github.com/cbayle/openfire-tuleap-plugins.git
 #  cloned from gitolite@tuleap.net:tuleap/deps/tuleap/openfire-tuleap-plugins.git
 # MAILMBOX=https://alioth.debian.org/anonscm/git/pkg-php/php-mail-mbox.git
+# LESSC=https://alioth.debian.org/anonscm/git/collab-maint/less.js.git
+# see also https://github.com/less/less.js.git
+# see also https://www.npmjs.org/package/npm2debian
 
 #TODO should find a way to build this too
 openfire:
