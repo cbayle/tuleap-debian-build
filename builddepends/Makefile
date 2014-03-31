@@ -17,15 +17,17 @@ REPODIR=/var/www/localrepo
 DISTRO=debian
 DISTRIB=wheezy
 SRCDISTRIB=sid
+DEBREPO=http://cdn.debian.net/debian
+LOCALREPO=http://127.0.0.1/localrepo/$(DISTRO)
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
-PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb http://cdn.debian.net/debian $(DISTRIB)-backports main'
-PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb http://127.0.0.1/localrepo/debian $(DISTRIB) main|deb http://cdn.debian.net/debian $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
+PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb $(DEBREPO) $(DISTRIB)-backports main'
+PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb $(LOCALREPO) $(DISTRIB) main|deb $(DEBREPO) $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
 PHASE=1
 GREEN=[01;32m
-NORMAL=[00m
 RED=[01;31m
+NORMAL=[00m
 
 
 default: depends getsource buildbin fillrepo buildbin2
