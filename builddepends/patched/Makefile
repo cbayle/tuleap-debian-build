@@ -14,7 +14,7 @@ recess: $(TBRECESS) $(BUILDDIR)/src_builddeps/$(TBRECESS)
 tarballs: $(TBLESS) $(TBRECESS)
 
 $(TBLESS):
-	cd less.js-1.3.3 ; debian/rules get-orig-source
+	cd less.js-1.3.3 && debian/rules get-orig-source
 	mv tarballs/$(TBLESS) .
 	rmdir tarballs
 
@@ -23,10 +23,10 @@ $(TBRECESS):
 
 $(BUILDDIR)/src_builddeps/$(TBLESS):
 	cp $(TBLESS) $@
-	cd $(BUILDDIR)/builddeps_src ; dpkg-source -b $(CURDIR)/$(LESSDIR)
+	cd $(BUILDDIR)/src_builddeps && dpkg-source -b $(CURDIR)/$(LESSDIR)
 
 $(BUILDDIR)/src_builddeps/$(TBRECESS):
 	cp $(TBRECESS) $@
-	cd $(BUILDDIR)/builddeps_src ; dpkg-source -b $(CURDIR)/$(RECESSDIR)
+	cd $(BUILDDIR)/src_builddeps && dpkg-source -b $(CURDIR)/$(RECESSDIR)
 
 
