@@ -1,0 +1,54 @@
+.TH RECESS 1 2012\-12\-30 1.1.0 "Twitter RECESS"
+
+.SH NAME
+\fBrecess\fR \- simple, attractive code quality tool for CSS built on top of LESS.
+
+.SH SYNOPSIS
+\fBrecess\fR [\fIPATH\fR] [\fIOPTIONS\fR]
+
+.SH DESCRIPTION
+Developed at Twitter to support our internal styleguide, RECESS is a simple, attractive code quality tool for CSS built on top of LESS.
+.PP
+Incorporate it into your development process as a linter, or integrate it directly into your build system as a compiler, RECESS will keep your source looking clean and super manageable.
+
+.SH OPTIONS
+.IP "\-\-compile" 4
+compiles your code and outputs it to the terminal. Fixes white space and sort order. Can compile css or less.
+.IP "\-\-compress" 4
+compress your compiled code.
+.IP "\-\-config" 4
+accepts a path, which specifies a json config object.
+.IP "\-\-stripColors" 4
+removes color from output (useful when logging).
+.IP "\-\-watch" 4
+watch filesystem for changes, useful when compiling Less projects.
+.IP "\-\-noIDs" 4
+doesn't complain about using IDs in your stylesheets.
+.IP "\-\-noJSPrefix" 4
+doesn't complain about styling `.js-` prefixed classnames.
+.IP "\-\-noOverqualifying" 4
+doesn't complain about overqualified selectors (ie: `div#foo.bar`).
+.IP "\-\-noUnderscores" 4
+doesn't complain about using underscores in your class names.
+.IP "\-\-noUniversalSelectors" 4
+doesn't complain about using the universal `*` selector.
+.IP "\-\-strictPropertyOrder" 4
+doesn't looking into your property ordering.
+.IP "\-\-zeroUnits" 4
+doesn't complain if you add units to values of 0.
+
+.SH EXAMPLES
+.IP "Lint all css files:" 0
+$ recess *.css
+.IP "Lint file, ignore styling of IDs:" 0
+$ recess ./bootstrap.css --noIds false
+.IP "Compile and compress .less file, then output it to a new file:" 0
+$ recess ./bootstrap.less --compress > ./bootstrap-production.css
+.IP "Watch a directory for changes and auto compile a css file from the changes. *experimental*:" 0
+$ recess input.less:ouput.css --compile --watch watch/this/dir/for/changes
+
+.SH SEE ALSO
+\fInode-less\fR(1)
+
+.SH AUTHOR
+RECESS was written by Jacob Thornton <\fIjacob@twitter.com\fR>.

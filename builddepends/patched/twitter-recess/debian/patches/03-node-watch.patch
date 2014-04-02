@@ -1,0 +1,13 @@
+Author: Daniel Baumann <daniel.baumann@progress-technologies.net>
+Description: Exclude watch until node-watch is in the archive.
+
+diff -Naurp twitter-recess.orig/bin/recess twitter-recess/bin/recess
+--- twitter-recess.orig/bin/recess	2012-12-30 23:20:10.768899489 +0100
++++ twitter-recess/bin/recess	2012-12-30 23:20:54.624908101 +0100
+@@ -1,6 +1,5 @@
+ #!/usr/bin/env nodejs
+ var recess = require('recess')
+-  , watch  = require('watch')
+   , nopt   = require('nopt')
+   , path   = require('path')
+   , fs     = require('fs')

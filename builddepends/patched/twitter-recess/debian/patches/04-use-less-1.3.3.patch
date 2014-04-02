@@ -1,0 +1,90 @@
+--- a/lib/compile/inline-images.js
++++ b/lib/compile/inline-images.js
+@@ -9,7 +9,7 @@
+ 
+ 'use strict'
+ 
+-var less = require('less')
++var less = require('less-1.3.3')
+   , fs = require('fs')
+   , seperator = (process.platform == 'win32') ? '\\' : '/'
+   , toCSS
+@@ -43,4 +43,4 @@
+ 
+ module.exports.off = function () {
+   less.tree.Value.prototype.toCSS = toCSS
+-}
+\ Pas de fin de ligne à la fin du fichier
++}
+--- a/lib/compile/prefix-whitespace.js
++++ b/lib/compile/prefix-whitespace.js
+@@ -9,7 +9,7 @@
+ 
+ 'use strict'
+ 
+-var less = require('less')
++var less = require('less-1.3.3')
+   , toCSS
+ 
+   // vendor prfixes
+@@ -95,4 +95,4 @@
+ 
+ module.exports.off = function () {
+   less.tree.Ruleset.prototype.toCSS = toCSS
+-}
+\ Pas de fin de ligne à la fin du fichier
++}
+--- a/lib/compile/strict-property-order.js
++++ b/lib/compile/strict-property-order.js
+@@ -9,7 +9,7 @@
+ 
+ 'use strict'
+ 
+-var less = require('less')
++var less = require('less-1.3.3')
+   , order = require('../lint/strict-property-order')
+   , toCSS
+ 
+@@ -44,4 +44,4 @@
+ 
+ module.exports.off = function () {
+   less.tree.Ruleset.prototype.toCSS = toCSS
+-}
+\ Pas de fin de ligne à la fin du fichier
++}
+--- a/lib/compile/zero-units.js
++++ b/lib/compile/zero-units.js
+@@ -9,7 +9,7 @@
+ 
+ 'use strict'
+ 
+-var less = require('less')
++var less = require('less-1.3.3')
+   , toCSS
+   , units = [
+       '%'
+@@ -39,4 +39,4 @@
+ 
+ module.exports.off = function () {
+   less.tree.Value.prototype.toCSS = toCSS
+-}
+\ Pas de fin de ligne à la fin du fichier
++}
+--- a/lib/core.js
++++ b/lib/core.js
+@@ -11,7 +11,7 @@
+ 
+ var _ = require('underscore')
+   , colors = require('colors')
+-  , less = require('less')
++  , less = require('less-1.3.3')
+   , util = require('./util')
+   , path = require('path')
+   , fs = require('fs')
+@@ -290,4 +290,4 @@
+ })
+ 
+ // export class
+-module.exports = RECESS
+\ Pas de fin de ligne à la fin du fichier
++module.exports = RECESS

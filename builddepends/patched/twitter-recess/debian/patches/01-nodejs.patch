@@ -1,0 +1,51 @@
+Author: Daniel Baumann <daniel.baumann@progress-technologies.net>
+Description: Update shebangs for Debians nodejs.
+
+diff -Naurp twitter-recess.orig/benchmark/index.js twitter-recess/benchmark/index.js
+--- twitter-recess.orig/benchmark/index.js	2012-12-30 21:40:54.768461650 +0000
++++ twitter-recess/benchmark/index.js	2012-12-30 21:44:41.076494923 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env node
++#!/usr/bin/env nodejs
+ var path = require('path')
+   , fs = require('fs')
+   , less = require('less')
+diff -Naurp twitter-recess.orig/bin/recess twitter-recess/bin/recess
+--- twitter-recess.orig/bin/recess	2012-12-30 21:40:54.768461650 +0000
++++ twitter-recess/bin/recess	2012-12-30 21:44:41.076494923 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env node
++#!/usr/bin/env nodejs
+ var recess = require('../lib')
+   , watch  = require('watch')
+   , nopt   = require('nopt')
+diff -Naurp twitter-recess.orig/makefile twitter-recess/makefile
+--- twitter-recess.orig/makefile	2012-12-30 21:40:54.768461650 +0000
++++ twitter-recess/makefile	2012-12-30 21:44:49.640496638 +0000
+@@ -2,13 +2,13 @@
+ # Run all tests
+ #
+ test:
+-	@@ node test
++	@@ nodejs test
+ 
+ #
+ # Run benchmark
+ #
+ benchmark:
+-	@@ node benchmark
++	@@ nodejs benchmark
+ 
+ 
+ .PHONY: test benchmark
+\ No newline at end of file
+diff -Naurp twitter-recess.orig/test/index.js twitter-recess/test/index.js
+--- twitter-recess.orig/test/index.js	2012-12-30 21:40:54.768461650 +0000
++++ twitter-recess/test/index.js	2012-12-30 21:44:41.076494923 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env node
++#!/usr/bin/env nodejs
+ require('./types/lint')
+ require('./types/compile')
+ require('./types/errors')
+\ No newline at end of file

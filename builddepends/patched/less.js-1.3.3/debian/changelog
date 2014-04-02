@@ -1,0 +1,206 @@
+less.js-1.3.3 (1.3.3-1) unstable; urgency=low
+
+  * Add README.source emphasizing control.in file as *not* a
+    show-stopper for contributions, referring to wiki page for details.
+  * Stop tracking md5sum of upstream tarball.
+  * Bump standards-version to 3.9.4.
+  * Use canonical hostname (anonscm.debian.org) in Vcs-Browser URI.
+  * Bump packaging license to GPL-3+, and extend copyrigt coverage for
+    myself to include recent years.
+  * Simplify to enable CDBS copyright check and get-orig-source features
+    unconditionally: Both are backporting-friendly nowadays - or rather
+    nowadays is more CDBS-backporting friendly).
+    Build-depend on devscripts.
+  * Extend copyright coverage for main upstream author.
+  * Skip a graphics file from copyright-check.
+  * List upstream issue tracker as preferred contact.
+  * Unfuzz patches.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Tue, 23 Jul 2013 02:32:44 +0200
+
+less.js (1.3.1~20121105-1) unstable; urgency=low
+
+  * New snapshot of upstream VCS.
+
+  [ Jonas Smedegaard ]
+  * Update watch and rules files to use archive subdir at github.com.
+  * Bump dephelper compatibility level to 8.
+  * Update patch 2001 to not needlessly mess with CSS file.
+  * Install (now renamed) CHANGELOG.md as upstream changelog.
+  * Update copyright file:
+    + Fix use pseudo-license and pseudo-comment sections to obey silly
+      restrictions of copyright format 1.0.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 15 Nov 2012 01:32:00 +0100
+
+less.js (1.3.0~20120310-4) unstable; urgency=low
+
+  [ Jérémy Lal ]
+  * Update patch 2001 to rename node to nodejs also in Makefile,
+    and in test outcome.
+    Closes: bug#688030. Thanks to James Page.
+
+  [ Jonas Smedegaard ]
+  * Directly use github.com (not unreliable githubredir.debian.net).
+  * Update package relations:
+    + Declare all package relations in rules file.
+    + Stop conflict/replace obsolete unstable-only virtual libnode-less.
+    + Stop provide bogus virtual lessc.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 23 Sep 2012 12:39:47 +0200
+
+less.js (1.3.0~20120310-3) unstable; urgency=low
+
+  * Really tighten build-dependency on nodejs.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 06 Aug 2012 14:46:55 +0200
+
+less.js (1.3.0~20120310-2) unstable; urgency=low
+
+  * Add patch 2001 to use /usr/bin/nodejs (not /usr/bin/env node), and
+    tighten (build-)dependency on nodejs.
+    See bug#614907.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 06 Aug 2012 03:25:07 +0200
+
+less.js (1.3.0~20120310-1) unstable; urgency=low
+
+  * New upstream (snapshot of) release.
+    Closes: bug#664622. Thanks to Daniel Baumann.
+  * Bump standards-version to 3.9.3.
+  * Use anonscm.debian.org URL in Vcs-Browser field.
+  * Unfuzz patch 2002.
+  * Update copyright file:
+    + Bump format to 1.0.
+    + Fix double-indent in Copyright fields as per Policy §5.6.13.
+    + Quote license name in comment.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 19 Mar 2012 14:33:06 +0100
+
+less.js (1.2.1~20120115-1) unstable; urgency=low
+
+  * New upstream (snapshot of) release.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 15 Jan 2012 17:34:51 +0100
+
+less.js (1.2.0~20120107-1) unstable; urgency=low
+
+  * New snapshot of upstream Git.
+  * Bump debhelper compat level to 7.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 09 Jan 2012 15:13:18 +0100
+
+less.js (1.1.6~20111224-1) unstable; urgency=low
+
+  * New snapshot of upstream Git.
+  * Improve short and long descriptions.
+  * Update watch file to use more flexible regex.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 25 Dec 2011 12:41:53 +0700
+
+less.js (1.1.6~20111220-1) unstable; urgency=low
+
+  * New snapshot of upstream Git.
+  * Drop local-options file: defaults since dpkg-source 1.16.1.
+  * Provide binary package node-less (not libnode-less).
+    Temporarily conflict and replace with old libnode-* package.
+  * Build-depend on node-uglify (not libnode-uglify).
+  * Refresh patch 2002.
+  * Update copyright file:
+    + Fix list more copyright holders of ecma-5.js.
+    + Consistently use separate License section for each license.
+    + Add Files section for newly included cssmin.js, and corresponding
+      new License section: BSD-3-Clause~Yahoo.
+    + Quote license names in comments.
+  * Relax to build-depend unversioned on debhelper and cdbs: needed
+    versions satisfied even in oldstable.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 23 Dec 2011 15:19:46 +0700
+
+less.js (1.1.4~20110820-1) unstable; urgency=low
+
+  * New snapshot of upstream Git.
+  * Tighten build-dependency on nodejs.
+  * Use (and build-depend on) yui-compressor as fallback for uglifyjs,
+    to ease backporting.
+  * Tighten build-dependency on cdbs.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 21 Aug 2011 10:33:11 +0200
+
+less.js (1.1.0~20110511-1) unstable; urgency=low
+
+  New (git snapshot approximating) upstream release.
+  * Update copyright file:
+    + Rewrap license fields at 72 chars, and shorten comments.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 16 May 2011 02:23:19 +0200
+
+less.js (1.0.43~20110422-1) unstable; urgency=low
+
+  * New (Git approximation of) upstream release.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 24 Apr 2011 03:37:57 +0200
+
+less.js (1.0.42~7f0650-2) unstable; urgency=low
+
+  * Use uglifyjs (not yui-compressor). Update build-dependencies
+    accordingly.
+  * Bump copyright file format to draft 174 of DEP-5.
+  * Bump policy compliance to standards-version 3.9.2.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 16 Apr 2011 10:39:25 +0200
+
+less.js (1.0.42~7f0650-1) unstable; urgency=low
+
+  * New upstream release.
+  * Package now team-maintained:
+    + Set Debian Javascript Maintainers as maintainer.
+    + Set myself as uploader.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 27 Feb 2011 21:07:28 +0100
+
+less.js (1.0.41~0d9575-1) experimental; urgency=low
+
+  * New (Git approximation of) upstream release.
+  * Run regression tests using upstream test target (now that node
+    executable is no longer unusually named).
+    Tighten build-dependency on nodejs to versions providing non-renamed
+    executable.
+  * Adjust long description to mention less (not less.js) as Node
+    library name.
+  * less.js is now official successor of original Ruby implementation:
+    Update Homepage and long descriptions.
+    Closes: bug#587363.
+  * Tidy copyright file:
+    + Bump DEP5 format to rev. 166.
+    + Fix use initial wildcard Files section.
+    + Extend copyright years.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 31 Jan 2011 23:45:14 +0100
+
+less.js (1.0.40~6b8a5c-3) unstable; urgency=low
+
+  * Rename binary package lessc to libnode-less, and instead virtually
+    provide lessc, to comply with micro-policy Node naming scheme.
+  * Drop libnode-less superfluously depending on libjs-less.
+  * Newline-wrap dependencies.
+  * Drop patch 2001: nodejs executable no longer unusually named in
+    Debian.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 28 Jan 2011 14:24:40 +0100
+
+less.js (1.0.40~6b8a5c-2) unstable; urgency=low
+
+  * Fix add reference to Apache-2.0 license in copyright file.
+  * Install uncompressed libraries (not symlink to compressed ones).
+  * Fix install libraries with lessc script, in Node libdir.
+  * Add patch 2002 to strip local PATH from lessc script.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 16 Jan 2011 22:46:24 +0100
+
+less.js (1.0.40~6b8a5c-1) unstable; urgency=low
+
+  * Initial release.
+    Closes: Bug#610165.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 16 Jan 2011 02:28:45 +0100

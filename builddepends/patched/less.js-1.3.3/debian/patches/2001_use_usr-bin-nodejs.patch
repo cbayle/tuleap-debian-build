@@ -1,0 +1,26 @@
+--- a/bin/lessc
++++ b/bin/lessc
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env node
++#!/usr/bin/nodejs
+ 
+ var path = require('path'),
+     fs = require('fs'),
+--- a/Makefile
++++ b/Makefile
+@@ -2,13 +2,13 @@
+ # Run all tests
+ #
+ test: 
+-	node test/less-test.js
++	nodejs test/less-test.js
+ 
+ #
+ # Run benchmark
+ #
+ benchmark:
+-	node benchmark/less-benchmark.js
++	nodejs benchmark/less-benchmark.js
+ 
+ #
+ # Build less.js

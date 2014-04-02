@@ -1,0 +1,3 @@
+version=3
+https://alioth.debian.org/~dapal/npmjs.php?id=recess \
+	http://registry.npmjs.org/recess/-/recess-(\d+.*)\.tgz

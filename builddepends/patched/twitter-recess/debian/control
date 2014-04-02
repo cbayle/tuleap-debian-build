@@ -1,0 +1,20 @@
+Source: twitter-recess
+Section: web
+Priority: optional
+Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.4
+Homepage: http://twitter.github.com/recess/
+
+Package: twitter-recess
+Section: web
+Architecture: all
+Depends:
+ ${misc:Depends}, nodejs, node-colors, node-less-1.3.3, node-nopt, node-underscore
+Description: code quality tool for CSS built on top of LESS
+ Developed at Twitter to support the internal styleguide, RECESS is a simple,
+ attractive code quality tool for CSS built on top of LESS.
+ .
+ RECESS can be incorporated into the development process as a linter, or
+ integrated directly into the build system as a compiler, RECESS will keep the
+ source looking clean and super manageable.

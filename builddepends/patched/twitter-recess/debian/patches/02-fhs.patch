@@ -1,0 +1,22 @@
+Author: Daniel Baumann <daniel.baumann@progress-technologies.net>
+Description: Update includes for system installation.
+
+diff -Naurp twitter-recess.orig/bin/recess twitter-recess/bin/recess
+--- twitter-recess.orig/bin/recess	2012-12-30 22:52:49.840584860 +0100
++++ twitter-recess/bin/recess	2012-12-30 22:53:20.612589671 +0100
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env nodejs
+-var recess = require('../lib')
++var recess = require('recess')
+   , watch  = require('watch')
+   , nopt   = require('nopt')
+   , path   = require('path')
+@@ -38,7 +38,7 @@ options = nopt(options, shorthand, proce
+ if (options.help) return recess.docs()
+ 
+ // set version
+-recess.version = require(path.join(__dirname, '..', 'package.json')).version
++recess.version = require('recess/package.json').version
+ if (options.version) return console.log(recess.version)
+ 
+ // set path from remaining arguments

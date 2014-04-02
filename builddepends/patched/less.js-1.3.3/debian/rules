@@ -1,0 +1,69 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+# Copyright © 2010, 2011, 2012, 2013 Jonas Smedegaard <dr@jones.dk>
+# Description: Main Debian packaging script for less.js
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-include /usr/share/cdbs/1/rules/upstream-tarball.mk
+include /usr/share/cdbs/1/rules/utils.mk
+include /usr/share/cdbs/1/class/makefile.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+lib = less
+pkg = node-$(lib)-$(DEB_UPSTREAM_TARBALL_VERSION)
+jspkg = libjs-$(lib)-$(DEB_UPSTREAM_TARBALL_VERSION)
+
+# Needed by upstream build and (always) at runtime
+deps = nodejs (>= 0.6.19~dfsg1-3~)
+
+CDBS_BUILD_DEPENDS +=, $(deps)
+CDBS_DEPENDS_$(pkg) = $(deps)
+CDBS_RECOMMENDS_$(jspkg) = javascript-common
+
+DEB_UPSTREAM_URL = https://github.com/cloudhead/less.js/archive
+DEB_UPSTREAM_TARBALL_BASENAME = v$(DEB_UPSTREAM_TARBALL_VERSION)
+
+DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^test/data/data-uri-fail\.png|debian/(changelog|copyright(|_hints|_newhints))$
+
+DEB_MAKE_EXTRA_ARGS = DIST=less.js
+
+DEB_MAKE_BUILD_TARGET = $(lib)
+
+DEB_MAKE_CHECK_TARGET = test
+
+# Upstream bogusly cleans released files
+DEB_MAKE_CLEAN_TARGET =
+
+DEB_INSTALL_CHANGELOGS_ALL = CHANGELOG.md
+DEB_INSTALL_DOCS_ALL += README.md
+
+# Ease backporting (node-uglify is tough to backport)
+# TODO: drop fallback-dependency when node-uglify is in oldstable
+CDBS_BUILD_DEPENDS +=, node-uglify | yui-compressor
+js-compressor := $(or $(notdir $(shell which uglifyjs)),yui-compressor)
+
+js-stems = $(lib)
+js-min = $(js-stems:%=debian/%.min.js)
+
+build/$(pkg)::
+	cp bin/lessc bin/lessc-$(DEB_UPSTREAM_TARBALL_VERSION)
+
+build/$(jspkg):: $(js-min)
+$(js-min): debian/%.min.js: %.js
+	$(js-compressor) -o $@ $<
+clean::
+	rm -f debian/*.js
+	rm -f less.js
+	rm -f bin/lessc-$(DEB_UPSTREAM_TARBALL_VERSION)

@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+%:
+	dh ${@}
+
+override_dh_auto_build:
+	# disabled: nothing to build
+
+override_dh_auto_test:
+	# disabled: doesn't work yet
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz -z9
