@@ -6,6 +6,7 @@ TBRECESS=twitter-recess_1.1.9.orig.tar.xz
 RECESSDIR=twitter-recess
 
 default: less recess
+	debclean
 
 less: $(TBLESS) $(BUILDDIR)/src_builddeps/$(TBLESS)
 
