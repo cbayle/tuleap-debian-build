@@ -64,6 +64,9 @@ build/$(jspkg):: $(js-min)
 $(js-min): debian/%.min.js: %.js
 	$(js-compressor) -o $@ $<
 clean::
+	dh_quilt_unpatch
 	rm -f debian/*.js
+	rm -f debian/*.log
 	rm -f less.js
 	rm -f bin/lessc-$(DEB_UPSTREAM_TARBALL_VERSION)
+
