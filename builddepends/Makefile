@@ -33,7 +33,9 @@ NORMAL=[00m
 
 default: depends getsource buildbin fillrepo buildbin2
 
-default2: getsource buildbin buildpatched fillrepo
+default2: getsource buildbin fillrepo
+
+default3: buildbin #fillrepo
 
 $(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
 	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
@@ -41,6 +43,7 @@ $(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
 
 buildpatched:
 	make -C patched
+	make PKGLIST="$(PKGPATCHED)" PBUILDEROPS="$(PBUILDEROPS2)" PHASE=3 default3
 
 buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
 	@make PKGLIST="$(PKGLIST2)" PBUILDEROPS="$(PBUILDEROPS2)" PHASE=2 default2
