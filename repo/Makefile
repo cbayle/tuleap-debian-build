@@ -9,7 +9,7 @@ REPOTITLE=My Local Repo
 ORIGIN=localhost.localdomain
 
 # SIGNKEY
-BOTKEYFILE=botkey
+BOTKEYFILE=botkey.$(shell hostname -f)
 ifeq (,$(shell echo "$$DEBEMAIL"))
 DEBEMAIL=buildbot@$(shell hostname -f)
 else
