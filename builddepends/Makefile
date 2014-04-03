@@ -88,7 +88,7 @@ buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
 				echo "===== Already build $$basename =====" ;\
 			fi \
 		else \
-			echo "===== Could not file source for $$pkg =====" ;\
+			echo "===== Could not find source for $$pkg =====" ;\
 		fi; \
 	done
 
