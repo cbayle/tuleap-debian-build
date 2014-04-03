@@ -20,7 +20,7 @@ SIGNKEY=$(DEBEMAIL)
 ASKPASS=--ask-passphrase
 ASKPASS=
 
-default: depends $(REPODIR) $(REPODIR)/debian/conf/distributions $(REPODIR)/ubuntu/conf/distributions $(HOME)/.gnupg/secring.gpg repo
+default: depends $(REPODIR) $(REPODIR)/debian/conf/distributions $(REPODIR)/ubuntu/conf/distributions genbotkey repo
 
 %/debian/conf/distributions:
 	[ -d $(REPODIR)/debian/conf ] || mkdir -p $(REPODIR)/debian/conf
@@ -70,10 +70,11 @@ $(REPODIR)/ubuntu/db:
 $(REPODIR)/botkey.gpg:
 	gpg --export > $@
 	
-
+genbotkey: $(HOME)/.gnupg/secring.gpg
+	gpg --export --armor | sudo apt-key add -
+	
 $(HOME)/.gnupg/secring.gpg: $(BOTKEYFILE)
 	[ -d ~/.gnupg ] || gpg --batch --gen-key $(BOTKEYFILE)
-	gpg --export --armor | sudo apt-key add -
 
 $(BOTKEYFILE):
 	(echo '%echo Generating a standard key' ; \
