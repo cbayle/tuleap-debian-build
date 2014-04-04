@@ -39,6 +39,7 @@ default3: buildbin fillrepo
 
 $(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
 	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
+	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
 	touch $@
 
 buildpatched:
