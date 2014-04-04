@@ -9,13 +9,15 @@ default: less recess
 	@debclean
 
 less: $(TBLESS) $(BUILDDIR)/src_builddeps/$(TBLESS)
+	cd $(LESSDIR) ; fakeroot debian/rules clean
 
 recess: $(TBRECESS) $(BUILDDIR)/src_builddeps/$(TBRECESS)
+	cd $(RECESSDIR) ; fakeroot debian/rules clean
 
 tarballs: $(TBLESS) $(TBRECESS)
 
 $(TBLESS):
-	cd less.js-1.3.3 && debian/rules get-orig-source
+	cd $(LESSDIR) && debian/rules get-orig-source
 	mv tarballs/$(TBLESS) .
 	rmdir tarballs
 
