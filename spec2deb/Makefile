@@ -5,8 +5,11 @@
 VERS=$(shell cat ../../tuleap/VERSION)
 default: $(HOME)/rpmbuild/SOURCES/tuleap-$(VERS).tar.gz $(HOME)/rpmbuild/SPECS/tuleap.spec spec2deb
 	# See http://www.redhat.com/archives/rpm-list/2002-July/msg00110.html
-	rpmspec -P $(HOME)/rpmbuild/SPECS/tuleap.spec > tuleap-cleaned.spec
-	cat tuleap-cleaned.spec | sed 's/\$$RPM_BUILD_ROOT/%{buildroot}/' > tuleap.spec
+	echo "%define php_base php53"> tuleap-php53.spec
+	cat $(HOME)/rpmbuild/SPECS/tuleap.spec >>tuleap-php53.spec
+	rpmspec -P tuleap-php53.spec > tuleap-cleaned.spec
+	echo "%define php_base php53"> tuleap.spec
+	cat tuleap-cleaned.spec | sed 's/\$$RPM_BUILD_ROOT/%{buildroot}/' >> tuleap.spec
 	cp $(HOME)/rpmbuild/SOURCES/tuleap-$(VERS).tar.gz tuleap_$(VERS).orig.tar.gz
 	#spec2deb --format="1.0"
 	#spec2deb --format="2.0"
