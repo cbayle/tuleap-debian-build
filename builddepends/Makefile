@@ -3,7 +3,7 @@ NPM_DEPS=node-ansi node-ansi-color-table node-archy node-block-stream node-fstre
 NPMGYP_DEPS=node-request node-tar node-which
 NPMREQ_DEPS=node-uuid node-mime node-forever-agent node-tunnel-agent node-json-stringify-safe node-qs node-cookie-jar node-form-data node-combined-stream node-async node-delayed-stream node-mute-stream node-read-package-json node-normalize-package-data node-sha node-slide
 PKGLIST=php-mail-mbox node-lru-cache node-sigmund node-minimatch node-inherits node-glob uglifyjs node-nopt node-abbrev $(NPM_DEPS) $(NPMGYP_DEPS) $(NPMREQ_DEPS)
-PKGPATCHED=twitter-recess less.js-1.3.3
+PKGPATCHED=twitter-recess less.js-1.3.3 mediawiki
 
 # 2nd list of packages who requires first list to be built
 PKGLIST2=npm colors.js underscore node-semver
