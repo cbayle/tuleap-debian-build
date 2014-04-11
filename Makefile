@@ -1,5 +1,5 @@
 # List of package to build
-PKGLIST=tuleap forgeupgrade php-mail-mbox jpgraph-tuleap mailman-tuleap viewvc-tuleap openfire-tuleap-plugins openfire
+PKGLIST=tuleap forgeupgrade jpgraph-tuleap mailman-tuleap viewvc-tuleap openfire-tuleap-plugins openfire
 # You can use the following as a make argument make BUILDDIR=/some/place
 BUILDDIR=$(HOME)/build
 # This will make a list of build/tuleap build/...
