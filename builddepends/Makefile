@@ -146,7 +146,10 @@ $(BUILDDIR)/src_builddeps:
 $(PBUILDERRESULTDIR):
 	[ -d $@ ] || mkdir -p $@
 
-depends: /usr/lib/cdbs
+depends: /usr/lib/cdbs /usr/bin/quilt
 
 /usr/lib/cdbs:
 	sudo apt-get install cdbs
+
+/usr/bin/quilt:
+	sudo apt-get install quilt
