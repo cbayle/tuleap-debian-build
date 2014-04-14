@@ -146,4 +146,7 @@ $(BUILDDIR)/src_builddeps:
 $(PBUILDERRESULTDIR):
 	[ -d $@ ] || mkdir -p $@
 
-depends:
+depends: /usr/lib/cdbs
+
+/usr/lib/cdbs:
+	sudo apt-get install cdbs
