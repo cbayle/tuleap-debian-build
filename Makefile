@@ -12,7 +12,10 @@ DISTRIB=wheezy
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
-PBUILDEROPS=--distribution $(DISTRIB)
+LOCALREPO=http://127.0.0.1/localrepo/$(DISTRO)
+DEBREPO=http://cdn.debian.net/debian
+#PBUILDEROPS=--distribution $(DISTRIB)
+PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb $(LOCALREPO) $(DISTRIB) main|deb $(DEBREPO) $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
 
 default: depends $(PKGLIST) buildsrc buildbin fillrepo fillopenfire
 
@@ -138,3 +141,9 @@ depends: /usr/share/build-essential /usr/sbin/pbuilder
 
 /usr/sbin/pbuilder:
 	sudo apt-get -y install pbuilder
+
+#
+# Place for convenient helper
+#
+submodules: tuleap/.git
+	git submodule foreach git checkout master
