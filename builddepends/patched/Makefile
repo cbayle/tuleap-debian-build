@@ -43,7 +43,7 @@ $(BUILDDIR)/src_builddeps/$(TBMW):
 depends: /usr/bin/dh_buildinfo /usr/bin/uglifyjs
 
 /usr/bin/dh_buildinfo:
-	sudo apt-get install dh_buildinfo
+	sudo apt-get install dh-buildinfo
 
 /usr/bin/uglifyjs:
 	sudo apt-get install node-uglify
