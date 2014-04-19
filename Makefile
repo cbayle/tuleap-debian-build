@@ -21,7 +21,7 @@ default: depends $(PKGLIST) buildsrc buildbin fillrepo fillopenfire
 
 buildsrc: $(BUILDDIR) $(BUILDDIR)/src $(PKGBUILDDIR)
 
-buildbin: $(PBUILDERRESULTDIR) /var/cache/pbuilder/base.tgz
+buildbin: $(PBUILDERRESULTDIR) /var/cache/pbuilder/base.tgz $(PBUILDERRESULTDIR)/integratedepends
 	@for dscfile in $(shell ls $(BUILDDIR)/src/*.dsc); do \
 	[ -f $(PBUILDERRESULTDIR)/`basename $$dscfile` ] || \
 	sudo pbuilder --build $(PBUILDEROPS) --buildresult $(PBUILDERRESULTDIR) $$dscfile; \
@@ -29,6 +29,11 @@ buildbin: $(PBUILDERRESULTDIR) /var/cache/pbuilder/base.tgz
 
 /var/cache/pbuilder/base.tgz:
 	sudo pbuilder --create $(PBUILDEROPS)
+
+$(PBUILDERRESULTDIR)/integratedepends:
+	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS) 
+	touch $@
+	
 
 fillrepo: preparerepo $(REPODIR)
 	@for changefile in $(shell ls $(PBUILDERRESULTDIR)/*.changes); do \
@@ -132,7 +137,7 @@ preparerepo:
 
 %/.git:
 	git submodule init
-	git submodule update
+	git submodule update --rebase
 
 depends: /usr/share/build-essential /usr/sbin/pbuilder
 
