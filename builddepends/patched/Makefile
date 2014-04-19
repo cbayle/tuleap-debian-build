@@ -8,7 +8,7 @@ TBMW=mediawiki_1.22.5+dfsg.orig.tar.xz
 TBMWDEB=mediawiki_1.22.5+dfsg-1.debian.tar.gz
 TBMWDSC=mediawiki_1.22.5+dfsg-1.dsc
 
-default: less recess mediawiki
+default: depends less recess mediawiki
 	@debclean
 
 less: $(TBLESS) $(BUILDDIR)/src_builddeps/$(TBLESS)
@@ -39,3 +39,11 @@ $(BUILDDIR)/src_builddeps/$(TBRECESS):
 
 $(BUILDDIR)/src_builddeps/$(TBMW):
 	cp $(TBMW) $(TBMWDEB) $(TBMWDSC) $(BUILDDIR)/src_builddeps/
+
+depends: /usr/bin/dh_buildinfo /usr/bin/uglifyjs
+
+/usr/bin/dh_buildinfo:
+	sudo apt-get install dh_buildinfo
+
+/usr/bin/uglifyjs:
+	sudo apt-get install node-uglify
