@@ -9,13 +9,11 @@ TBMWDEB=mediawiki_1.22.5+dfsg-1.debian.tar.gz
 TBMWDSC=mediawiki_1.22.5+dfsg-1.dsc
 
 default: depends less recess mediawiki
-	@debclean
+	@#debclean
 
 less: $(TBLESS) $(BUILDDIR)/src_builddeps/$(TBLESS)
-	cd $(LESSDIR) ; fakeroot debian/rules clean
 
 recess: $(TBRECESS) $(BUILDDIR)/src_builddeps/$(TBRECESS)
-	cd $(RECESSDIR) ; fakeroot debian/rules clean
 
 mediawiki: $(BUILDDIR)/src_builddeps/$(TBMW)
 
@@ -32,10 +30,12 @@ $(TBRECESS):
 $(BUILDDIR)/src_builddeps/$(TBLESS):
 	cp $(TBLESS) $@
 	cd $(BUILDDIR)/src_builddeps && dpkg-source -b $(CURDIR)/$(LESSDIR)
+	cd $(CURDIR)/$(LESSDIR) ; fakeroot debian/rules clean
 
 $(BUILDDIR)/src_builddeps/$(TBRECESS):
 	cp $(TBRECESS) $@
 	cd $(BUILDDIR)/src_builddeps && dpkg-source -b $(CURDIR)/$(RECESSDIR)
+	cd $(CURDIR)/$(RECESSDIR) ; fakeroot debian/rules clean
 
 $(BUILDDIR)/src_builddeps/$(TBMW):
 	cp $(TBMW) $(TBMWDEB) $(TBMWDSC) $(BUILDDIR)/src_builddeps/
