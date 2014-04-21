@@ -58,7 +58,8 @@ getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	@touch $(BUILDDIR)/src_builddeps/done
 	@cd $(BUILDDIR)/src_builddeps ; \
 	for pkg in $(PKGLIST) ; do \
-	if [ -f "$(BUILDDIR)/src_builddeps/$$pkg*.dsc" ]; then \
+	filename=`expr "$${pkg}_*.dsc"`; \
+	if [ -f $$filename ]; then \
 		echo "===== Already got `ls $$pkg*.dsc` ====="; \
 	else \
 		echo "===== Getting $$pkg ====="; \
