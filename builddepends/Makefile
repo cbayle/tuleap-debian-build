@@ -55,13 +55,20 @@ getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
 		update
+	@touch $(BUILDDIR)/src_builddeps/done
 	@cd $(BUILDDIR)/src_builddeps ; \
-	[ -f $(BUILDDIR)/src_builddeps/done ] || apt-get -qq \
+	for pkg in $(PKGLIST) ; do \
+	if [ -f "$(BUILDDIR)/src_builddeps/$$pkg*.dsc" ]; then \
+		echo "===== Already got `ls $$pkg*.dsc` ====="; \
+	else \
+		echo "===== Getting $$pkg ====="; \
+		apt-get -qq \
 		-o Dir=$(BUILDDIR)/apt \
 		-o Debug::NoLocking=1 \
 		-o Dir::Etc::SourceList="$(CURDIR)/sources.list" \
-		source --download-only $(PKGLIST)
-	@#touch $(BUILDDIR)/src_builddeps/done
+		source --download-only $$pkg ;\
+	fi; \
+	done
 
 cleanpbuilder:
 	rm $(PBUILDERRESULTDIR)/preparebuildbin
