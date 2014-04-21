@@ -20,7 +20,6 @@ DISTRIB=wheezy
 SRCDISTRIB=sid
 DEBREPO=http://cdn.debian.net/debian
 LOCALREPO=http://127.0.0.1/localrepo/$(DISTRO)
-ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null)
 ASKPASS=--ask-passphrase
 ASKPASS=
 PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb $(DEBREPO) $(DISTRIB)-backports main'
@@ -95,9 +94,10 @@ buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
 
 fillrepo: preparerepo $(REPODIR)
 	@for changefile in $(shell ls $(PBUILDERRESULTDIR)/*.changes); do \
-	[ -f $(REPODIR)/$(DISTRO)/pool/main/*/*/`basename $$changefile|sed 's/$(ARCH)/*/'` ] || \
+	[ -f $(REPODIR)/$(DISTRO)/pool/main/*/*/`basename $$changefile|sed 's/\(.*\)_\(.*\)_.*\(.changes\)/\1_*\2_*\3/'` ] || \
+	(echo "== `basename $$changefile|sed 's/\(.*\)_\(.*\)_.*\(.changes\)/\1_*\2_*\3/'` ==" ; \
 	reprepro --ignore=wrongdistribution --ignore=missingfile $(ASKPASS) \
-		-Vb $(REPODIR)/$(DISTRO) include $(DISTRIB) $$changefile; \
+		-Vb $(REPODIR)/$(DISTRO) include $(DISTRIB) $$changefile); \
 	done
 
 list:
