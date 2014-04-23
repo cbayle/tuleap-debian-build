@@ -11,10 +11,10 @@ NPMREQ_DEPS=node-uuid node-mime node-forever-agent node-tunnel-agent \
 	node-combined-stream node-async node-delayed-stream \
 	node-mute-stream node-read-package-json \
 	node-normalize-package-data node-sha node-slide
-RUBYDEPS=ruby-test-unit ruby-metaclass ruby-introspection #ruby-minitest #yard ruby-redcarpet
-RUBYDEPS2=gem2deb #ruby-mocha 
+#RUBYDEPS=ruby-test-unit ruby-metaclass ruby-introspection ruby-mocha #ruby-minitest #yard ruby-redcarpet
+#RUBYDEPS2=#gem2deb
 
-PKGVAGRANT=vagrant ruby-childprocess #ruby-net-ssh ruby-net-scp
+PKGVAGRANT=vagrant ruby-childprocess ruby-net-ssh ruby-net-scp
 
 # 1st List of package to build
 PKGLIST1=php-mail-mbox node-lru-cache node-sigmund node-minimatch \
@@ -58,7 +58,7 @@ RED=[01;31m
 NORMAL=[00m
 
 
-default: depends getsource dgetsource buildbin1 fillrepo buildbin2 fillrepo buildpatched fillrepo
+default: depends getsource dgetsource ignorerubytesterr buildbin1 fillrepo buildbin2 fillrepo buildpatched fillrepo
 
 getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	@echo "Get Source"
@@ -99,6 +99,12 @@ cleanpbuilder2:
 $(PBUILDERRESULTDIR)/preparebuildbin1: $(PBUILDERRESULTDIR)
 	[ -f $@ ] || sudo pbuilder --create $(PBUILDEROPS)
 	touch $@
+
+ignorerubytesterr:
+	if ! grep -q DH_RUBY_IGNORE_TESTS $(HOME)/.pbuilderrc 2>/dev/null ; then \
+		echo "export DH_RUBY_IGNORE_TESTS=all" >> $(HOME)/.pbuilderrc ;\
+	fi 
+
 
 buildbin1: $(PBUILDERRESULTDIR)/preparebuildbin1 $(PBUILDERRESULTDIR)
 	@echo "Build phase 1"
