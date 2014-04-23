@@ -1,28 +1,45 @@
-# List of package to build
+#
 NPM_DEPS=node-ansi node-ansi-color-table node-archy \
 	node-block-stream node-fstream node-fstream-ignore \
 	node-github-url-from-git node-graceful-fs node-ini \
 	node-lockfile node-mkdirp node-gyp node-npmlog \
 	node-once node-osenv node-read node-read-package-json \
-	node-request node-retry node-rimraf 
+	node-retry node-rimraf 
 NPMGYP_DEPS=node-request node-tar node-which
 NPMREQ_DEPS=node-uuid node-mime node-forever-agent node-tunnel-agent \
 	node-json-stringify-safe node-qs node-cookie-jar node-form-data \
 	node-combined-stream node-async node-delayed-stream \
 	node-mute-stream node-read-package-json \
 	node-normalize-package-data node-sha node-slide
-PKGLIST=php-mail-mbox node-lru-cache node-sigmund node-minimatch \
+RUBYDEPS=ruby-test-unit ruby-metaclass ruby-introspection #ruby-minitest #yard ruby-redcarpet
+RUBYDEPS2=#ruby-mocha #gem2deb
+
+PKGVAGRANT=vagrant ruby-childprocess #ruby-net-ssh ruby-net-scp
+
+# 1st List of package to build
+PKGLIST1=php-mail-mbox node-lru-cache node-sigmund node-minimatch \
 	node-inherits node-glob uglifyjs node-nopt node-abbrev \
-	$(NPM_DEPS) $(NPMGYP_DEPS) $(NPMREQ_DEPS)
-PKGPATCHED=twitter-recess less.js-1.3.3 mediawiki
+	$(NPM_DEPS) $(NPMGYP_DEPS) $(NPMREQ_DEPS) $(RUBYDEPS) \
+	$(PKGVAGRANT)
 
 # 2nd list of packages who requires first list to be built
-PKGLIST2=npm colors.js underscore node-semver
+PKGLIST2=npm colors.js underscore node-semver $(RUBYDEPS2)
+
+# list of patched packages
+PKGPATCHED=twitter-recess less.js-1.3.3 mediawiki
+
+# list of package to download
+PKGLIST=$(PKGLIST1) $(PKGLIST2)
+
 # You can use the following as a make argument make BUILDDIR=/some/place
 BUILDDIR=$(HOME)/build
+
 # This will make a list of build/src_builddeps/<pkg1> build/...
-PKGBUILDDIR=$(patsubst %,$(BUILDDIR)/src_builddeps/%,$(PKGLIST))
+PKGBUILDDIR1=$(patsubst %,$(BUILDDIR)/src_builddeps/%,$(PKGLIST1))
 PKGBUILDDIR2=$(patsubst %,$(BUILDDIR)/src_builddeps/%,$(PKGLIST2))
+PKGBUILDPATCHED=$(patsubst %,$(BUILDDIR)/src_builddeps/%,$(PKGPATCHED))
+
+PKGBUILDDIR=$(PKGBUILDDIR1) $(PKGBUILDDIR2) $(PKGBUILDPATCHED)
 
 PBUILDERRESULTDIR=$(BUILDDIR)/result_builddeps
 REPODIR=/var/www/localrepo
@@ -35,29 +52,13 @@ ASKPASS=--ask-passphrase
 ASKPASS=
 PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb $(DEBREPO) $(DISTRIB)-backports main'
 PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb $(LOCALREPO) $(DISTRIB) main|deb $(DEBREPO) $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
-PHASE=1
+
 GREEN=[01;32m
 RED=[01;31m
 NORMAL=[00m
 
 
-default: depends getsource buildbin fillrepo buildbin2 buildpatched
-
-default2: getsource buildbin fillrepo
-
-default3: buildbin fillrepo
-
-$(PBUILDERRESULTDIR)/preparebuildbin2: $(PBUILDERRESULTDIR)
-	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
-	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
-	touch $@
-
-buildpatched:
-	make -C patched
-	make PKGLIST="$(PKGPATCHED)" PBUILDEROPS="$(PBUILDEROPS2)" PHASE=3 default3
-
-buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
-	@make PKGLIST="$(PKGLIST2)" PBUILDEROPS="$(PBUILDEROPS2)" PHASE=2 default2
+default: depends getsource dgetsource buildbin1 fillrepo buildbin2 fillrepo buildpatched fillrepo
 
 getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	@echo "Get Source"
@@ -82,18 +83,25 @@ getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	fi; \
 	done
 
-cleanpbuilder:
-	rm $(PBUILDERRESULTDIR)/preparebuildbin
+dgetsource:
+	@cd $(BUILDDIR)/src_builddeps ; \
+	#[ -f vagrant_1.2.2-1.dsc ] || dget -d http://archive.ubuntu.com/ubuntu/pool/universe/v/vagrant/vagrant_1.2.2-1.dsc ; \
+	#[ -f ruby-childprocess_0.3.9-2.dsc ] || dget -d http://archive.ubuntu.com/ubuntu/pool/main/r/ruby-childprocess/ruby-childprocess_0.3.9-2.dsc ; \
+	#[ -f ruby-net-scp_1.1.1-1.dsc ] || dget -d http://archive.ubuntu.com/ubuntu/pool/universe/r/ruby-net-scp/ruby-net-scp_1.1.1-1.dsc; \
+	#[ -f ruby-net-ssh_2.6.7-1.dsc ] || dget -d http://archive.ubuntu.com/ubuntu/pool/universe/r/ruby-net-ssh/ruby-net-ssh_2.6.7-1.dsc
+
+cleanpbuilder1:
+	rm $(PBUILDERRESULTDIR)/preparebuildbin1
 
 cleanpbuilder2:
 	rm $(PBUILDERRESULTDIR)/preparebuildbin2
 
-$(PBUILDERRESULTDIR)/preparebuildbin: $(PBUILDERRESULTDIR)
+$(PBUILDERRESULTDIR)/preparebuildbin1: $(PBUILDERRESULTDIR)
 	[ -f $@ ] || sudo pbuilder --create $(PBUILDEROPS)
 	touch $@
 
-buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
-	@echo "Build phase $(PHASE)"
+buildbin1: $(PBUILDERRESULTDIR)/preparebuildbin1 $(PBUILDERRESULTDIR)
+	@echo "Build phase 1"
 	@for pkg in $(PKGBUILDDIR); do \
 		filename=`expr "$${pkg}_*.dsc"`; \
 		basename=`basename $$filename`; \
@@ -101,7 +109,56 @@ buildbin: $(PBUILDERRESULTDIR)/preparebuildbin $(PBUILDERRESULTDIR)
 			if [ ! -f $(PBUILDERRESULTDIR)/$$basename ]; then\
 				( \
 				echo "===== Building $$basename =====" ;\
-				sudo pbuilder --build $(PBUILDEROPS) --buildresult $(PBUILDERRESULTDIR) $$filename; \
+				sudo pbuilder --build $(PBUILDEROPS) \
+				--buildresult $(PBUILDERRESULTDIR) $$filename; \
+				) \
+			else \
+				echo "===== Already build $$basename =====" ;\
+			fi \
+		else \
+			echo "===== Could not find source for $$pkg =====" ;\
+		fi; \
+	done
+
+$(PBUILDERRESULTDIR)/preparebuildbin2:
+	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
+	[ -f $@ ] || sudo pbuilder --update $(PBUILDEROPS2) 
+	touch $@
+
+buildbin2: $(PBUILDERRESULTDIR)/preparebuildbin2
+	@echo "Build phase 2"
+	@for pkg in $(PKGBUILDDIR2); do \
+		filename=`expr "$${pkg}_*.dsc"`; \
+		basename=`basename $$filename`; \
+		if [ -f $$filename ]; then \
+			if [ ! -f $(PBUILDERRESULTDIR)/$$basename ]; then\
+				( \
+				echo "===== Building $$basename =====" ;\
+				sudo pbuilder --build $(PBUILDEROPS2) \
+				--buildresult $(PBUILDERRESULTDIR) $$filename; \
+				) \
+			else \
+				echo "===== Already build $$basename =====" ;\
+			fi \
+		else \
+			echo "===== Could not find source for $$pkg =====" ;\
+		fi; \
+	done
+
+preparepatched:
+	make -C patched
+
+buildpatched: preparepatched
+	@echo "Build patched"
+	@for pkg in $(PKGBUILDPATCHED); do \
+		filename=`expr "$${pkg}_*.dsc"`; \
+		basename=`basename $$filename`; \
+		if [ -f $$filename ]; then \
+			if [ ! -f $(PBUILDERRESULTDIR)/$$basename ]; then\
+				( \
+				echo "===== Building $$basename =====" ;\
+				sudo pbuilder --build $(PBUILDEROPS2) \
+				--buildresult $(PBUILDERRESULTDIR) $$filename; \
 				) \
 			else \
 				echo "===== Already build $$basename =====" ;\
@@ -120,7 +177,7 @@ fillrepo: preparerepo $(REPODIR)
 	done
 
 list:
-	@for pkg in $(PKGBUILDDIR) $(PKGBUILDDIR2); do \
+	@for pkg in $(PKGBUILDDIR) ; do \
 		filename=`expr "$${pkg}_*.dsc"`; \
 		if [ -f $$filename ]; then \
 			basename=`basename $$filename`; \
