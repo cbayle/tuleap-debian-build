@@ -12,7 +12,7 @@ NPMREQ_DEPS=node-uuid node-mime node-forever-agent node-tunnel-agent \
 	node-mute-stream node-read-package-json \
 	node-normalize-package-data node-sha node-slide
 RUBYDEPS=ruby-test-unit ruby-metaclass ruby-introspection #ruby-minitest #yard ruby-redcarpet
-RUBYDEPS2=#ruby-mocha #gem2deb
+RUBYDEPS2=gem2deb #ruby-mocha 
 
 PKGVAGRANT=vagrant ruby-childprocess #ruby-net-ssh ruby-net-scp
 
@@ -102,7 +102,7 @@ $(PBUILDERRESULTDIR)/preparebuildbin1: $(PBUILDERRESULTDIR)
 
 buildbin1: $(PBUILDERRESULTDIR)/preparebuildbin1 $(PBUILDERRESULTDIR)
 	@echo "Build phase 1"
-	@for pkg in $(PKGBUILDDIR); do \
+	@for pkg in $(PKGBUILDDIR1); do \
 		filename=`expr "$${pkg}_*.dsc"`; \
 		basename=`basename $$filename`; \
 		if [ -f $$filename ]; then \
