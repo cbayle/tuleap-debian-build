@@ -11,19 +11,16 @@ NPMREQ_DEPS=node-uuid node-mime node-forever-agent node-tunnel-agent \
 	node-combined-stream node-async node-delayed-stream \
 	node-mute-stream node-read-package-json \
 	node-normalize-package-data node-sha node-slide
-#RUBYDEPS=ruby-test-unit ruby-metaclass ruby-introspection ruby-mocha #ruby-minitest #yard ruby-redcarpet
-#RUBYDEPS2=#gem2deb
 
-PKGVAGRANT=vagrant ruby-childprocess ruby-net-ssh ruby-net-scp
+PKGVAGRANT=vagrant ruby-net-ssh ruby-net-scp
 
 # 1st List of package to build
 PKGLIST1=php-mail-mbox node-lru-cache node-sigmund node-minimatch \
 	node-inherits node-glob uglifyjs node-nopt node-abbrev \
-	$(NPM_DEPS) $(NPMGYP_DEPS) $(NPMREQ_DEPS) $(RUBYDEPS) \
-	$(PKGVAGRANT)
+	$(NPM_DEPS) $(NPMGYP_DEPS) $(NPMREQ_DEPS) $(PKGVAGRANT)
 
 # 2nd list of packages who requires first list to be built
-PKGLIST2=npm colors.js underscore node-semver $(RUBYDEPS2)
+PKGLIST2=npm colors.js underscore node-semver
 
 # list of patched packages
 PKGPATCHED=twitter-recess less.js-1.3.3 mediawiki
