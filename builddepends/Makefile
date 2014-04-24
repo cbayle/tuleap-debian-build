@@ -26,7 +26,7 @@ PKGLIST2=npm colors.js underscore node-semver
 PKGPATCHED=twitter-recess less.js-1.3.3 mediawiki
 
 # list of package to download
-PKGLIST=$(PKGLIST1) $(PKGLIST2) $(PKGVAGRANT)
+PKGLIST=$(PKGLIST1) $(PKGLIST2)
 
 # You can use the following as a make argument make BUILDDIR=/some/place
 BUILDDIR=$(HOME)/build
