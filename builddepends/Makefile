@@ -47,7 +47,7 @@ DEBREPO=http://cdn.debian.net/debian
 LOCALREPO=http://127.0.0.1/localrepo/$(DISTRO)
 ASKPASS=--ask-passphrase
 ASKPASS=
-PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb $(DEBREPO) $(DISTRIB)-backports main'
+PBUILDEROPS=--distribution $(DISTRIB) --othermirror 'deb $(DEBREPO) $(DISTRIB)-backports main' --configfile $(HOME)/.pbuilderrc
 PBUILDEROPS2=--distribution $(DISTRIB) --othermirror 'deb $(LOCALREPO) $(DISTRIB) main|deb $(DEBREPO) $(DISTRIB)-backports main' --keyring $(REPODIR)/botkey.gpg --override-config
 
 GREEN=[01;32m
