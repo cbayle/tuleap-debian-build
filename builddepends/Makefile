@@ -3,7 +3,7 @@ NPM_DEPS=node-ansi node-ansi-color-table node-archy \
 	node-block-stream node-fstream node-fstream-ignore \
 	node-github-url-from-git node-graceful-fs node-ini \
 	node-lockfile node-mkdirp node-gyp node-npmlog \
-	node-once node-osenv node-read node-read-package-json \
+	node-once node-osenv node-read \
 	node-retry node-rimraf 
 NPMGYP_DEPS=node-request node-tar node-which
 NPMREQ_DEPS=node-uuid node-mime node-forever-agent node-tunnel-agent \
