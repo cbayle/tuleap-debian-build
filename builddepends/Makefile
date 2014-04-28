@@ -55,7 +55,8 @@ RED=[01;31m
 NORMAL=[00m
 
 
-default: depends getsource dgetsource ignorerubytesterr buildbin1 fillrepo buildbin2 fillrepo buildpatched fillrepo
+default: depends getsource dgetsource ignorerubytesterr buildbin1 fillrepo buildbin2 fillrepo buildpatched
+	make fillrepo
 
 getsource: $(BUILDDIR) $(BUILDDIR)/src_builddeps $(BUILDDIR)/apt
 	@echo "Get Source"
