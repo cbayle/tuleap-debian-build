@@ -37,6 +37,7 @@ fetch_upstream(){
 	upstream_dir=$1
 	upstream_url=$2
 	(cd $1
+	echo "=== $1 ==="
 	git remote -v | grep -q 'upstream	'
 	if [ $? -eq 0 ]
 	then
@@ -98,4 +99,5 @@ do
 done
 }
 
-merge
+sync
+#merge
