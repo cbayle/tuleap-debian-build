@@ -82,6 +82,14 @@ do
 done
 }
 
+merge(){
+for submodule in tuleap jpgraph-tuleap mailman-tuleap viewvc-tuleap openfire-tuleap-plugins
+do
+	(cd $submodule
+	git merge upstream/master)
+done
+}
+
 list(){
 for submodule in tuleap jpgraph-tuleap mailman-tuleap viewvc-tuleap openfire-tuleap-plugins forgeupgrade php-mail-mbox
 do
@@ -90,4 +98,4 @@ do
 done
 }
 
-rebase
+merge
