@@ -9,7 +9,7 @@
 TULEAP="https://github.com/cbayle/tuleap.git"
 UPSTULEAP="https://github.com/Enalean/tuleap.git"
 
-FORGEUPG="https://github.com/vaceletm/ForgeUpgrade.git"
+UPSFORGEUPG="https://github.com/vaceletm/ForgeUpgrade.git"
 #
 JPGRAPH="https://github.com/cbayle/jpgraph-tuleap.git"
 #  cloned from
@@ -48,6 +48,19 @@ fetch_upstream(){
 	git fetch upstream)
 }
 
+sub_add(){
+	dir=$1
+	upstream_url=$2
+	echo "=== submodule $1 -> $upstream_url ==="
+	if [ -f "$1/.git" ]
+	then
+		echo "Already done $1"
+	else	
+		git submodule add $2 $1
+	fi
+}
+
+# SYNC
 sync_tuleap(){
 	fetch_upstream tuleap $TULEAP
 }
@@ -66,6 +79,27 @@ sync_viewvc-tuleap(){
 
 sync_openfire-tuleap-plugins(){
 	fetch_upstream openfire-tuleap-plugins $UPSOPENFIREPLUGIN
+}
+
+# ADD
+add_jpgraph-tuleap(){
+	sub_add jpgraph-tuleap $JPGRAPH
+}
+
+add_mailman-tuleap(){
+	sub_add mailman-tuleap $MAILMAN
+}
+
+add_viewvc-tuleap(){
+	sub_add viewvc-tuleap $VIEWVC
+}
+
+add_openfire-tuleap-plugins(){
+	sub_add openfire-tuleap-plugins $OPENFIREPLUGIN
+}
+
+add_forgeupgrade(){
+	sub_add forgeupgrade $UPSFORGEUPG
 }
 
 sync(){
@@ -99,5 +133,13 @@ do
 done
 }
 
-sync
+add(){
+for submodule in jpgraph-tuleap mailman-tuleap viewvc-tuleap openfire-tuleap-plugins forgeupgrade
+do
+	add_$submodule
+done
+}
+
+#sync
 #merge
+#add
